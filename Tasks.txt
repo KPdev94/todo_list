@@ -1,0 +1,12 @@
+1. Create task class with name, summary, participants, due date, priority, and status
+2. Store tasks in array of tasks
+    2A. Create popup for adding additional tasks to array 
+3. Generate grid of tasks that need to be accomplished
+    3A. Above tasks waiting to be accomplished make grid of overdue tasks 
+4. Generate grid below of already accomplished tasks
+5. Button to delete tasks incase they are wrong or no longer relevent
+6. 
+7. 
+8. 
+9. 
+10. 
