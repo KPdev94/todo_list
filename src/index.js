@@ -1,7 +1,11 @@
-alert("RUNNING WEBPACK");
+import './style.css';
+
+alert("RUNNING WEBSITE");
 
 const contentArea = document.getElementById('content');
+
 let taskList = [];
+
 class Task{
     constructor(name, summary, participants, dueDate, priority, status = 'in progress'){
         this.name = name;
@@ -15,9 +19,9 @@ class Task{
     }
 }
 
-let sampleTask = new Task("Sample Task", "This is a sample.", "Only Me", "12/12/3000", "Urgent");
+let sampleInProgressTask = new Task("Sample Task", "This is a sample.", "Only Me", "12/12/3000", "Urgent");
+let sampleCompletedTask = new Task('Sample complete task', '"This is a completed task', 'Me again', '11/11/2000', "Urgent", "completed");
 console.log(taskList);
-
 
 function createNewTaskButton() {
     let newTaskButtonDiv = document.createElement('div');
@@ -31,7 +35,8 @@ function createNewTaskButton() {
     newTaskText.classList.add('new-task-text');
     newTaskText.textContent = 'New Task';
 
-    contentArea.appendChild(newTaskButtonDiv);
+    let tasksDiv = document.querySelector('.in-progress-tasks');
+    tasksDiv.appendChild(newTaskButtonDiv);
     newTaskButtonDiv.appendChild(newTaskButton);
     newTaskButtonDiv.appendChild(newTaskText);
 
@@ -59,7 +64,15 @@ function createTaskList() {
     let tasksDiv = document.createElement('div');
     tasksDiv.classList.add('tasks-div');
 
+    let inProgressTasks = document.createElement('div');
+    inProgressTasks.classList.add('in-progress-tasks');
+
+    let completesTasks = document.createElement('div');
+    completesTasks.classList.add('completed-tasks');
+
     contentArea.appendChild(tasksDiv);
+    tasksDiv.appendChild(inProgressTasks);
+    tasksDiv.appendChild(completesTasks);
 
     populateTasks();
 }
@@ -70,6 +83,7 @@ function populateTasks() {
         taskDiv.classList.add('task-div');
 
         let taskNameDiv = document.createElement('div');
+        taskNameDiv.classList.add('tasks-name');
         let taskNameHeading = document.createElement('p');
         taskNameHeading.textContent = 'Name: ';
         let taskNameInfo = document.createElement('p');
@@ -78,6 +92,7 @@ function populateTasks() {
         taskNameDiv.appendChild(taskNameInfo);
 
         let taskSummaryDiv = document.createElement('div');
+        taskSummaryDiv.classList.add('tasks-summary');
         let taskSummaryHeading = document.createElement('p');
         taskSummaryHeading.textContent = 'Summary: ';
         let taskSummaryInfo = document.createElement('p');
@@ -86,6 +101,7 @@ function populateTasks() {
         taskSummaryDiv.appendChild(taskSummaryInfo);
 
         let taskParticipantsDiv = document.createElement('div');
+        taskParticipantsDiv.classList.add('tasks-participants');
         let taskParticipantsHeading = document.createElement('p');
         taskParticipantsHeading.textContent = 'Participants: ';
         let taskParticipantsInfo = document.createElement('p');
@@ -94,6 +110,7 @@ function populateTasks() {
         taskParticipantsDiv.appendChild(taskParticipantsInfo);
 
         let taskDueDateDiv = document.createElement('div');
+        taskDueDateDiv.classList.add('tasks-due-date');
         let taskDueDateHeading = document.createElement('p');
         taskDueDateHeading.textContent = 'Due date: ';
         let taskDueDateInfo = document.createElement('p');
@@ -102,6 +119,7 @@ function populateTasks() {
         taskDueDateDiv.appendChild(taskDueDateInfo);
 
         let taskPriorityDiv = document.createElement('div');
+        taskPriorityDiv.classList.add('tasks-priority');
         let taskPriorityHeading = document.createElement('p');
         taskPriorityHeading.textContent = 'Priority: ';
         let taskPriorityInfo = document.createElement('p');
@@ -110,13 +128,14 @@ function populateTasks() {
         taskPriorityDiv.appendChild(taskPriorityInfo);
 
         let taskStatusDiv = document.createElement('div');
+        taskStatusDiv.classList.add('tasks-status');
         let taskStatusHeading = document.createElement('p');
         taskStatusHeading.textContent = 'Status: ';
         let taskStatusInfo = document.createElement('p');
         taskStatusInfo.textContent = task.status;
         taskStatusDiv.appendChild(taskStatusHeading);
         taskStatusDiv.appendChild(taskStatusInfo);
-
+        
         taskDiv.appendChild(taskNameDiv);
         taskDiv.appendChild(taskSummaryDiv);
         taskDiv.appendChild(taskParticipantsDiv);
@@ -124,9 +143,17 @@ function populateTasks() {
         taskDiv.appendChild(taskPriorityDiv);
         taskDiv.appendChild(taskStatusDiv);
 
-        document.querySelector('.tasks-div').appendChild(taskDiv);
+        if(task.status == 'in progress') {
+        document.querySelector('.in-progress-tasks').appendChild(taskDiv);
+        }
+        else if(task.status == 'completed') {
+        document.querySelector('.completed-tasks').appendChild(taskDiv);
+        }
+        else alert(`${task.name} has an error and cannot be placed.`);
     })
 }
+
+
 
 function generateHome() {
     createHeading();
