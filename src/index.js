@@ -4,6 +4,7 @@ import './style.css';
 const contentArea = document.getElementById('content');
 
 let taskList = [];
+let count = 0;
 
 class Task{
     constructor(name, summary, participants, dueDate, priority, status = 'in progress'){
@@ -261,6 +262,11 @@ function populateTasks() {
         taskStatusInfo.textContent = task.status;
         taskStatusDiv.appendChild(taskStatusHeading);
         taskStatusDiv.appendChild(taskStatusInfo);
+
+        let deleteButton = document.createElement('button');
+        deleteButton.classList.add('delete-button');
+        deleteButton.setAttribute('data-num', count);
+        deleteButton.textContent = 'X';
         
         taskDiv.appendChild(taskNameDiv);
         taskDiv.appendChild(taskSummaryDiv);
@@ -268,6 +274,7 @@ function populateTasks() {
         taskDiv.appendChild(taskDueDateDiv);
         taskDiv.appendChild(taskPriorityDiv);
         taskDiv.appendChild(taskStatusDiv);
+        taskDiv.appendChild(deleteButton);
 
         if(task.status == 'in progress') {
         document.querySelector('.in-progress-tasks').appendChild(taskDiv);
@@ -276,10 +283,20 @@ function populateTasks() {
         document.querySelector('.completed-tasks').appendChild(taskDiv);
         }
         else alert(`${task.name} has an error and cannot be placed.`);
+
+        count++;
     })
+    let deleteButtons = document.querySelectorAll('.delete-button');
+    deleteButtons.forEach((button) => button.addEventListener('click', deleteTask));
+    count = 0;
 }
 
-
+function deleteTask(e) {
+    let toBeDeleted = e.target.getAttribute('data-num');
+    taskList.splice(toBeDeleted, 1); 
+    contentArea.removeChild(document.querySelector('.tasks-div'));
+    createTaskList();
+}
 
 function generateHome() {
     createHeading();

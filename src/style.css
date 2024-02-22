@@ -94,3 +94,10 @@ body {
 .new-task-window-input-div {
     display: flex;
 }
+
+.delete-button {
+    position: relative;
+    left: 3px;
+    top: 3px;
+    background-color: red;
+}
