@@ -22,6 +22,17 @@ let sampleInProgressTask = new Task("Sample Task", "This is a sample.", "Only Me
 let sampleCompletedTask = new Task('Sample complete task', '"This is a completed task', 'Me again', '11/11/2000', "Urgent", "completed");
 console.log(taskList);
 
+function submitNewTask() {
+    let newName = document.querySelector('#nameInput').value;
+    let newSummary = document.querySelector('#summaryInput').value;
+    let newParticipants = document.querySelector('#participantsInput').value;
+    let newDueDate = document.querySelector('#dueDateInput').value;
+    let newPriority = document.querySelector('#priorityInput').value;
+    let newStatus = document.querySelector('#statusInput').value;
+
+    new Task(newName, newSummary, newParticipants, newDueDate, newPriority, newStatus);
+}
+
 function createNewTaskWindow() {
     let newTaskWindowDiv = document.createElement('div');
     newTaskWindowDiv.classList.add('new-task-window');
@@ -114,6 +125,14 @@ function createNewTaskWindow() {
         document.querySelector('#content').removeChild(newTaskWindowDiv);
         tasksDiv.style.display = 'block';
     });
+
+    document.querySelector('#submit-task-button').addEventListener('click', () => {
+        submitNewTask();
+        document.querySelector('#content').removeChild(newTaskWindowDiv);
+        tasksDiv.style.display = 'block';
+        contentArea.removeChild(document.querySelector('.tasks-div'));
+        createTaskList();
+    })
 }
 
 function createNewTaskButton() {
@@ -127,6 +146,12 @@ function createNewTaskButton() {
     let tasksDiv = document.querySelector('.in-progress-tasks');
     tasksDiv.appendChild(newTaskButtonDiv);
     newTaskButtonDiv.appendChild(newTaskButton);
+
+    let addNewTaskButton = document.querySelector('.new-task-button');
+addNewTaskButton.addEventListener('click', () => {
+    document.querySelector('.tasks-div').style.display = 'none';
+    createNewTaskWindow();
+});
 
     return newTaskButtonDiv;
 }
@@ -163,6 +188,7 @@ function createTaskList() {
     tasksDiv.appendChild(completesTasks);
 
     populateTasks();
+    createNewTaskButton();
 }
 
 function populateTasks() {
@@ -258,12 +284,6 @@ function populateTasks() {
 function generateHome() {
     createHeading();
     createTaskList();
-    createNewTaskButton();
 }
 
 window.addEventListener('load', generateHome());
-let addNewTaskButton = document.querySelector('.new-task-button');
-addNewTaskButton.addEventListener('click', () => {
-    document.querySelector('.tasks-div').style.display = 'none';
-    createNewTaskWindow();
-});

@@ -11,6 +11,7 @@ body {
 #content {
     padding: 12px;
     display: flex;
+    flex: 1 1 0;
     flex-direction: column;
 }
 .heading {
@@ -32,7 +33,7 @@ body {
 .tasks-div {
     margin-top: 10px;
 }
-.in-progress-tasks {
+.in-progress-tasks, .completed-tasks {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min-content, 0));
     gap: 20px;
@@ -81,6 +82,7 @@ body {
 .new-task-window {
     position: sticky;
     display: flex;
+    max-width: fit-content;
     flex-direction: column;
     margin-top: 12px;
     border: 2px solid black;
