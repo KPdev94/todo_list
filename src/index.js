@@ -27,18 +27,93 @@ function createNewTaskWindow() {
     newTaskWindowDiv.classList.add('new-task-window');
 
     let newTaskNameDiv = document.createElement('div');
-    
+    newTaskNameDiv.classList.add('new-task-window-input-div');
+    let newTaskNameTitle = document.createElement('label');
+    newTaskNameTitle.textContent = 'Task name:';
+    let newTaskNameInput = document.createElement('input');
+    newTaskNameInput.id = 'nameInput';
+    newTaskNameTitle.htmlFor = 'nameInput';
 
     let newTaskSummaryDiv = document.createElement('div');
+    newTaskSummaryDiv.classList.add('new-task-window-input-div');
+    let newTaskSummaryTitle = document.createElement('label');
+    newTaskSummaryTitle.textContent = 'Summary:';
+    let newTaskSummaryInput = document.createElement('TEXTAREA');
+    newTaskSummaryInput.id = 'summaryInput';
+    newTaskSummaryTitle.htmlFor = 'summaryInput';
 
     let newTaskParticipantsDiv = document.createElement('div');
+    newTaskParticipantsDiv.classList.add('new-task-window-input-div');
+    let newTaskParticipantsTitle = document.createElement('label');
+    newTaskParticipantsTitle.textContent = 'Participants:'
+    let newTaskParticipantsInput = document.createElement('input');
+    newTaskParticipantsInput.id = 'participantsInput';
+    newTaskParticipantsTitle.htmlFor = 'participantsInput';
 
     let newTaskDueDateDiv = document.createElement('div');
+    newTaskDueDateDiv.classList.add('new-task-window-input-div');
+    let newTaskDueDateTitle = document.createElement('label');
+    newTaskDueDateTitle.textContent = 'Due date:'
+    let newTaskDueDateInput = document.createElement('input');
+    newTaskDueDateInput.id = 'dueDateInput';
+    newTaskDueDateTitle.htmlFor = 'dueDateInput';
 
     let newTaskPriorityDiv = document.createElement('div');
+    newTaskPriorityDiv.classList.add('new-task-window-input-div');
+    let newTaskPriorityTitle = document.createElement('label');
+    newTaskPriorityTitle.textContent = 'Priority:'
+    let newTaskPriorityInput = document.createElement('input');
+    newTaskPriorityInput.id = 'priorityInput';
+    newTaskPriorityTitle.htmlFor = 'priorityInput';
 
     let newTaskStatusDiv = document.createElement('div');
+    newTaskStatusDiv.classList.add('new-task-window-input-div');
+    let newTaskStatusTitle = document.createElement('label');
+    newTaskStatusTitle.textContent = 'Status:'
+    let newTaskStatusInput = document.createElement('input');
+    newTaskStatusInput.id = 'statusInput';
+    newTaskStatusTitle.htmlFor = 'statusInput';
 
+    let tasksDiv = document.querySelector('.tasks-div');
+    contentArea.appendChild(newTaskWindowDiv);
+    newTaskWindowDiv.appendChild(newTaskNameDiv);
+    newTaskNameDiv.append(newTaskNameTitle);
+    newTaskNameDiv.append(newTaskNameInput);
+    newTaskWindowDiv.appendChild(newTaskSummaryDiv);
+    newTaskSummaryDiv.append(newTaskSummaryTitle);
+    newTaskSummaryDiv.append(newTaskSummaryInput);
+    newTaskWindowDiv.appendChild(newTaskParticipantsDiv);
+    newTaskParticipantsDiv.append(newTaskParticipantsTitle);
+    newTaskParticipantsDiv.append(newTaskParticipantsInput);
+    newTaskWindowDiv.appendChild(newTaskDueDateDiv);
+    newTaskDueDateDiv.append(newTaskDueDateTitle);
+    newTaskDueDateDiv.append(newTaskDueDateInput);
+    newTaskWindowDiv.appendChild(newTaskPriorityDiv);
+    newTaskPriorityDiv.append(newTaskPriorityTitle);
+    newTaskPriorityDiv.append(newTaskPriorityInput);
+    newTaskWindowDiv.appendChild(newTaskStatusDiv);
+    newTaskStatusDiv.append(newTaskStatusTitle);
+    newTaskStatusDiv.append(newTaskStatusInput);
+
+    let cancelButton = document.createElement('button');
+    cancelButton.textContent = 'Cancel';
+    cancelButton.id = 'cancel-task-button';
+
+    let submitButton = document.createElement('button');
+    submitButton.textContent = 'Submit';
+    submitButton.id = 'submit-task-button';
+
+    let buttonsDiv = document.createElement('div');
+    buttonsDiv.id = 'buttons-div';
+    buttonsDiv.appendChild(cancelButton);
+    buttonsDiv.appendChild(submitButton);
+
+    newTaskWindowDiv.appendChild(buttonsDiv);
+
+    document.querySelector('#cancel-task-button').addEventListener('click', () => {
+        document.querySelector('#content').removeChild(newTaskWindowDiv);
+        tasksDiv.style.display = 'block';
+    });
 }
 
 function createNewTaskButton() {
@@ -52,7 +127,6 @@ function createNewTaskButton() {
     let tasksDiv = document.querySelector('.in-progress-tasks');
     tasksDiv.appendChild(newTaskButtonDiv);
     newTaskButtonDiv.appendChild(newTaskButton);
-    newTaskButtonDiv.appendChild(newTaskText);
 
     return newTaskButtonDiv;
 }
@@ -188,3 +262,8 @@ function generateHome() {
 }
 
 window.addEventListener('load', generateHome());
+let addNewTaskButton = document.querySelector('.new-task-button');
+addNewTaskButton.addEventListener('click', () => {
+    document.querySelector('.tasks-div').style.display = 'none';
+    createNewTaskWindow();
+});

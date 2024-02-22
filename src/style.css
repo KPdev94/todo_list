@@ -10,11 +10,17 @@ body {
 }
 #content {
     padding: 12px;
+    display: flex;
+    flex-direction: column;
 }
 .heading {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+}
+
+.buttonsDiv {
+    display: flex;
 }
 
 .heading h1, .heading h2 {
@@ -70,4 +76,19 @@ body {
 .new-task-button {
     background-color: blueviolet;
     height: 75px;
+}
+
+.new-task-window {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    margin-top: 12px;
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 6px;
+    gap: 8px;
+}
+
+.new-task-window-input-div {
+    display: flex;
 }
