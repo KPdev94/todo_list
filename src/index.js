@@ -211,14 +211,24 @@ function createTaskList() {
     let tasksDiv = document.createElement('div');
     tasksDiv.classList.add('tasks-div');
 
+    let inProgressHeader = document.createElement('div');
+    inProgressHeader.classList.add('in-progress-header');
+    inProgressHeader.textContent = "In progress";
+
     let inProgressTasks = document.createElement('div');
     inProgressTasks.classList.add('in-progress-tasks');
+
+    let completedHeader = document.createElement('div');
+    completedHeader.classList.add('completed-header');
+    completedHeader.textContent = 'Completed';
 
     let completesTasks = document.createElement('div');
     completesTasks.classList.add('completed-tasks');
 
     contentArea.appendChild(tasksDiv);
+    tasksDiv.appendChild(inProgressHeader);
     tasksDiv.appendChild(inProgressTasks);
+    tasksDiv.appendChild(completedHeader);
     tasksDiv.appendChild(completesTasks);
 
     populateTasks();
