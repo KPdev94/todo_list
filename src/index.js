@@ -19,8 +19,8 @@ class Task{
     }
 }
 
-let sampleInProgressTask = new Task("Sample Task", "This is a sample.", "Only Me", "12/12/3000", "Urgent");
-let sampleCompletedTask = new Task('Sample complete task', '"This is a completed task', 'Me again', '11/11/2000', "Urgent", "completed");
+let sampleInProgressTask = new Task("Sample Task", "This is a sample.", "Only Me", "12/12/3000", "High");
+let sampleCompletedTask = new Task('Sample complete task', '"This is a completed task', 'Me again', '11/11/2000', "High", "completed");
 console.log(taskList);
 
 function submitNewTask() {
@@ -28,8 +28,10 @@ function submitNewTask() {
     let newSummary = document.querySelector('#summaryInput').value;
     let newParticipants = document.querySelector('#participantsInput').value;
     let newDueDate = document.querySelector('#dueDateInput').value;
-    let newPriority = document.querySelector('#priorityInput').value;
-    let newStatus = document.querySelector('#statusInput').value;
+    let newPriority = document.querySelector('input[name="priority"]:checked').value;
+    let newStatus;
+        if(document.querySelector('#statusInput').checked == true) newStatus = 'completed';
+        else newStatus = 'in progress';
 
     new Task(newName, newSummary, newParticipants, newDueDate, newPriority, newStatus);
 }
@@ -67,45 +69,76 @@ function createNewTaskWindow() {
     let newTaskDueDateTitle = document.createElement('label');
     newTaskDueDateTitle.textContent = 'Due date:'
     let newTaskDueDateInput = document.createElement('input');
+    newTaskDueDateInput.setAttribute('type', 'date');
     newTaskDueDateInput.id = 'dueDateInput';
     newTaskDueDateTitle.htmlFor = 'dueDateInput';
 
     let newTaskPriorityDiv = document.createElement('div');
     newTaskPriorityDiv.classList.add('new-task-window-input-div');
     let newTaskPriorityTitle = document.createElement('label');
-    newTaskPriorityTitle.textContent = 'Priority:'
-    let newTaskPriorityInput = document.createElement('input');
-    newTaskPriorityInput.id = 'priorityInput';
-    newTaskPriorityTitle.htmlFor = 'priorityInput';
+    newTaskPriorityTitle.textContent = 'Priority: ';
+
+    let newTaskLowPriorityInput = document.createElement('input');
+    newTaskLowPriorityInput.setAttribute('type', 'radio');
+    newTaskLowPriorityInput.setAttribute('value', 'Low');
+    newTaskLowPriorityInput.id = 'priorityLowInput';
+    newTaskLowPriorityInput.setAttribute('name', 'priority');
+    let lowPriority = document.createElement('label');
+    lowPriority.setAttribute('for', 'priorityLowInput');
+    lowPriority.textContent = 'Low';
+
+    let newTaskNormalPriorityInput = document.createElement('input');
+    newTaskNormalPriorityInput.setAttribute('type', 'radio');
+    newTaskNormalPriorityInput.setAttribute('value', 'Normal');
+    newTaskNormalPriorityInput.id = 'priorityNormalInput';
+    newTaskNormalPriorityInput.setAttribute('name', 'priority');
+    let normalPriority = document.createElement('label');
+    normalPriority.setAttribute('for', 'priorityNormalInput');
+    normalPriority.textContent = 'Normal';
+
+    let newTaskHighPriorityInput = document.createElement('input');
+    newTaskHighPriorityInput.setAttribute('type', 'radio');
+    newTaskHighPriorityInput.setAttribute('value', 'High');
+    newTaskHighPriorityInput.id = 'priorityHighInput';
+    newTaskHighPriorityInput.setAttribute('name', 'priority');
+    let highPriority = document.createElement('label');
+    highPriority.setAttribute('for', 'priorityHighInput');
+    highPriority.textContent = 'High';
 
     let newTaskStatusDiv = document.createElement('div');
     newTaskStatusDiv.classList.add('new-task-window-input-div');
     let newTaskStatusTitle = document.createElement('label');
-    newTaskStatusTitle.textContent = 'Status:'
+    newTaskStatusTitle.textContent = 'Complete'
     let newTaskStatusInput = document.createElement('input');
+    newTaskStatusInput.setAttribute('type', 'checkbox');
     newTaskStatusInput.id = 'statusInput';
     newTaskStatusTitle.htmlFor = 'statusInput';
 
     let tasksDiv = document.querySelector('.tasks-div');
     contentArea.appendChild(newTaskWindowDiv);
     newTaskWindowDiv.appendChild(newTaskNameDiv);
-    newTaskNameDiv.append(newTaskNameTitle);
-    newTaskNameDiv.append(newTaskNameInput);
+    newTaskNameDiv.appendChild(newTaskNameTitle);
+    newTaskNameDiv.appendChild(newTaskNameInput);
     newTaskWindowDiv.appendChild(newTaskSummaryDiv);
-    newTaskSummaryDiv.append(newTaskSummaryTitle);
-    newTaskSummaryDiv.append(newTaskSummaryInput);
+    newTaskSummaryDiv.appendChild(newTaskSummaryTitle);
+    newTaskSummaryDiv.appendChild(newTaskSummaryInput);
     newTaskWindowDiv.appendChild(newTaskParticipantsDiv);
-    newTaskParticipantsDiv.append(newTaskParticipantsTitle);
-    newTaskParticipantsDiv.append(newTaskParticipantsInput);
+    newTaskParticipantsDiv.appendChild(newTaskParticipantsTitle);
+    newTaskParticipantsDiv.appendChild(newTaskParticipantsInput);
     newTaskWindowDiv.appendChild(newTaskDueDateDiv);
-    newTaskDueDateDiv.append(newTaskDueDateTitle);
-    newTaskDueDateDiv.append(newTaskDueDateInput);
+    newTaskDueDateDiv.appendChild(newTaskDueDateTitle);
+    newTaskDueDateDiv.appendChild(newTaskDueDateInput);
     newTaskWindowDiv.appendChild(newTaskPriorityDiv);
-    newTaskPriorityDiv.append(newTaskPriorityTitle);
-    newTaskPriorityDiv.append(newTaskPriorityInput);
+    newTaskPriorityDiv.appendChild(newTaskPriorityTitle);
+    newTaskPriorityDiv.appendChild(newTaskLowPriorityInput);
+    newTaskPriorityDiv.appendChild(lowPriority);
+    newTaskPriorityDiv.appendChild(newTaskNormalPriorityInput);
+    newTaskPriorityDiv.appendChild(normalPriority);
+    newTaskPriorityDiv.appendChild(newTaskHighPriorityInput);
+    newTaskPriorityDiv.appendChild(highPriority);
     newTaskWindowDiv.appendChild(newTaskStatusDiv);
-    newTaskStatusDiv.append(newTaskStatusTitle);
-    newTaskStatusDiv.append(newTaskStatusInput);
+    newTaskStatusDiv.appendChild(newTaskStatusTitle);
+    newTaskStatusDiv.appendChild(newTaskStatusInput);
 
     let cancelButton = document.createElement('button');
     cancelButton.textContent = 'Cancel';
