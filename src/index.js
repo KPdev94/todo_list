@@ -163,8 +163,8 @@ function createNewTaskWindow() {
     document.querySelector('#submit-task-button').addEventListener('click', () => {
         submitNewTask();
         document.querySelector('#content').removeChild(newTaskWindowDiv);
-        tasksDiv.style.display = 'block';
         contentArea.removeChild(document.querySelector('.tasks-div'));
+        tasksDiv.style.display = 'block';
         createTaskList();
     })
 }
@@ -208,6 +208,7 @@ function createHeading() {
 }
 
 function createTaskList() {
+
     let tasksDiv = document.createElement('div');
     tasksDiv.classList.add('tasks-div');
 
@@ -297,14 +298,13 @@ function populateTasks() {
 
         let taskStatusDiv = document.createElement('div');
         taskStatusDiv.classList.add('tasks-status');
-        let taskStatusHeading = document.createElement('p');
-        taskStatusHeading.classList.add('task-subheading');
-        taskStatusHeading.textContent = 'Status';
-        let taskStatusInfo = document.createElement('p');
-        taskStatusInfo.classList.add('task-info');
-        taskStatusInfo.textContent = task.status;
-        taskStatusDiv.appendChild(taskStatusHeading);
-        taskStatusDiv.appendChild(taskStatusInfo);
+        if(task.status == 'in progress') {
+            let taskStatusButton = document.createElement('button');
+            taskStatusButton.classList.add('task-status-button');
+            taskStatusButton.setAttribute('data-num', count);
+            taskStatusButton.textContent = 'Completed';
+            taskStatusDiv.appendChild(taskStatusButton);
+        }
 
         let deleteButton = document.createElement('button');
         deleteButton.classList.add('delete-button');
@@ -331,7 +331,16 @@ function populateTasks() {
     })
     let deleteButtons = document.querySelectorAll('.delete-button');
     deleteButtons.forEach((button) => button.addEventListener('click', deleteTask));
+    let completeButtons = document.querySelectorAll('.task-status-button');
+    completeButtons.forEach((button) => button.addEventListener('click', completeTask));
     count = 0;
+}
+
+function completeTask(e) {
+    let toBeCompleted = e.target.getAttribute('data-num');
+    taskList[toBeCompleted].status = 'completed';
+    contentArea.removeChild(document.querySelector('.tasks-div'));
+    createTaskList();
 }
 
 function deleteTask(e) {

@@ -46,10 +46,11 @@ body {
     border: 2px solid black;
     border-radius: 8px;
     grid-template-columns: repeat(2, fit-content(10px));
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(4, fit-content(25px));
     gap: 10px;
     padding: 6px;
-    width: fit-content;
+    width: max-content;
+    height: min-content;
     font-size: 12px;
 }
 
@@ -73,6 +74,12 @@ body {
     margin-top: 0;
     display: flex;
     justify-content: center;
+}
+
+.task-status-button {
+    background-color: green;
+    width: min-content;
+    border-radius: 4px;
 }
 
 .new-task-div {
@@ -107,8 +114,13 @@ body {
 }
 
 .delete-button {
-    position: relative;
-    left: 3px;
-    top: 3px;
+    width: min-content;
+    height: min-content;
     background-color: red;
+}
+
+.task-status {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
